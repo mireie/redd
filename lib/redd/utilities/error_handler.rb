@@ -36,16 +36,14 @@ module Redd
 
       # Deal with an error caused by having an expired or invalid access token.
       def invalid_access_error(res)
-        return nil unless res.code == 401 && res.headers[AUTH_HEADER] &&
-                          res.headers[AUTH_HEADER].include?(INVALID_TOKEN)
+        return nil unless res.code == 401 && res.headers[AUTH_HEADER]&.include?(INVALID_TOKEN)
 
         Errors::InvalidAccess.new(res)
       end
 
       # Deal with an error caused by not having enough the correct scope
       def insufficient_scope_error(res)
-        return nil unless res.code == 403 && res.headers[AUTH_HEADER] &&
-                          res.headers[AUTH_HEADER].include?(INSUFFICIENT_SCOPE)
+        return nil unless res.code == 403 && res.headers[AUTH_HEADER]&.include?(INSUFFICIENT_SCOPE)
 
         Errors::InsufficientScope.new(res)
       end

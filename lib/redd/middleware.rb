@@ -81,7 +81,7 @@ module Redd
     # Do any cleanup or changes after calling the application.
     def after_call
       env_session = @request.env['redd.session']
-      if env_session && env_session.client.access
+      if env_session&.client&.access
         # Make sure to flush any changes made to the Session client to the browser.
         @request.session[:redd_session] = env_session.client.access.to_h
       else

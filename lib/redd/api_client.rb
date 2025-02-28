@@ -88,7 +88,7 @@ module Redd
       raise 'client access is nil, try calling #authenticate' if @access.nil?
 
       # Refresh access if auto_refresh is enabled
-      refresh if @access.expired? && @auto_refresh && @auth && @auth.refreshable?(@access)
+      refresh if @access.expired? && @auto_refresh && @auth&.refreshable?(@access)
     end
 
     def handle_retryable_errors
