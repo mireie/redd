@@ -23,7 +23,7 @@ module Redd
     def initialize(app, opts = {})
       @app = app
       strategy_opts = opts.select { |k| %i[user_agent client_id secret redirect_uri].include?(k) }
-      @strategy = Redd::AuthStrategies::Web.new(strategy_opts)
+      @strategy = Redd::AuthStrategies::Web.new(**strategy_opts)
 
       @user_agent   = opts.fetch(:user_agent, "Redd:Web Application:v#{Redd::VERSION} (by unknown)")
       @client_id    = opts.fetch(:client_id)
@@ -113,12 +113,12 @@ module Redd
     # Return a {Redd::Models::Session} based on the hash saved into the browser's session.
     def parse_session
       parsed_session = @request.session[:redd_session]
-                               .each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+                               .transform_keys(&:to_sym)
       client = Redd::APIClient.new(@strategy,
                                    user_agent: @user_agent,
                                    limit_time: 0,
                                    auto_refresh: @auto_refresh)
-      client.access = Redd::Models::Access.new(@strategy, parsed_session)
+      client.access = Redd::Models::Access.new(@strategy, **parsed_session)
       Redd::Models::Session.new(client)
     end
   end

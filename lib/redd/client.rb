@@ -84,8 +84,8 @@ module Redd
     def connection
       # TODO: Make timeouts configurable
       @connection ||= HTTP.persistent(@endpoint)
-                          .headers('User-Agent' => @user_agent)
-                          .timeout(:per_operation, write: 5, connect: 5, read: 5)
+                         .headers('User-Agent' => @user_agent)
+                         .timeout(write: 5, connect: 5, read: 5)
     end
   end
 end
