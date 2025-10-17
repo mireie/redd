@@ -1,7 +1,7 @@
 AllCops:
   TargetRubyVersion: 3.0
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Style/MutableConstant:
@@ -23,3 +23,7 @@ Metrics/ParameterLists:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
+
+# Allow longer methods when they're well-structured and readable
+Metrics/MethodLength:
+  CountAsOne: [array, hash, heredoc, method_call]
