@@ -23,6 +23,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
 
   spec.add_dependency 'http', '~> 5.1'
   spec.add_dependency 'lazy_lazer', '~> 0.8.1'
+  spec.add_dependency 'webrick', '~> 1.9.1'
 
   spec.add_development_dependency 'bundler', '~> 2.4'
   spec.add_development_dependency 'pry', '~> 0.14'
