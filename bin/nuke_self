@@ -14,9 +14,12 @@ begin
   puts 'Deleting all items...'
 
   deleted_count = 0
-  overview.map(&:delete)
+  overview.map do |item|
+    item.delete
+    deleted_count += 1
+  end
 
-  puts "Successfully deleted #{overview.count} items from your overview"
+  puts "Successfully deleted #{deleted_count} items from your overview"
 rescue StandardError => e
   puts "Error occurred: #{e.message}"
   puts e.backtrace if ENV['DEBUG']
